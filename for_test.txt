@@ -1,0 +1,17 @@
+test mpi
+新建ipfile，内容为mpi集群ip列表，如
+> ip1
+> ip2
+以ip1作为集群主host，执行如下命令
+mpirun -f ipfile -np 8 /<nfs_dir>/<prog>
+注意执行的程序必须在相同目录下且使用绝对路径，此处使用挂在的nfs文件夹，保证在集群所有主机上路径相同
+
+
+test cuda
+测试awp-odc
+测试cuda官方例子
+
+
+test cuda+mpi
+使用nv cuda官方例子simpleMPI
+mpirun -f hostfile -np 8 /<nfs_dir>/<prog>

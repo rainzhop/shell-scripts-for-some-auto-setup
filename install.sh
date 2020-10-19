@@ -1,7 +1,8 @@
 #! /bin/bash
 
-local_host="<ip>"
+local_ip="<ip>"
 local_passwd="<pw>"
+
 share_dir="<dir>"
 nfs_clients_subnet="<ip>/<mask>"
 
@@ -16,11 +17,12 @@ echo $local_passwd | sudo -S pwd
 sudo apt install -y expect
 
 # ssh no password ok
-expect ./exp_ssh-nopw.sh $remote $remote_user $remote_passwd
+# sudo bash -c "echo '$remote $remote_host' >> /etc/hosts"
+expect ./exp_ssh-nopw.sh $remote $remote_user $remote_passwd $local_ip $local_host
 
 # nfs ok
 ./nfs-server-setup.sh $share_dir $local_passwd $nfs_clients_subnet
-expect ./exp_nfs-client-remote-setup.sh $remote $remote_user $remote_passwd $local_host $share_dir
+expect ./exp_nfs-client-remote-setup.sh $remote $remote_user $remote_passwd $local_ip $share_dir
 
 # mpi ok
 sudo apt install -y mpich
